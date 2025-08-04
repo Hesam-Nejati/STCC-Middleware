@@ -1,0 +1,30 @@
+MIT License
+
+Copyright (c) 2025 Hesam Nejati
+
+Permission is hereby granted, free of charge, to any person obtaining a copy
+of this software and associated documentation files (the “Software”), to deal
+in the Software without restriction, including without limitation the rights
+to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+copies of the Software, subject to the following conditions:
+
+The above copyright notice and this permission notice shall be included in all
+copies or substantial portions of the Software.
+
+== CITATION REQUIREMENT ==
+Any published, distributed, or derivative work using this software (in part or in whole)
+**must cite the following publication** in any related academic or technical output:
+
+@article{aldin2020strict,
+  title={Strict timed causal consistency as a hybrid consistency model in the cloud environment},
+  author={Aldin, Hesam Nejati Sharif and Deldari, Hossein and Moattar, Mohammad Hossein and Ghods, Mostafa Razavi},
+  journal={Future Generation Computer Systems},
+  volume={105},
+  pages={259--274},
+  year={2020},
+  publisher={Elsevier}
+}
+
+Once our upcoming publication related to this implementation is accepted, citation of that work will also be required.
+
+THE SOFTWARE IS PROVIDED “AS IS”, WITHOUT WARRANTY OF ANY KIND.

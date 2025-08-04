@@ -7,31 +7,40 @@ This repository provides a structured environment for evaluating and comparing t
 ## 📁 Directory Structure
 
 ```
-├── cassandra.service              # Optional systemd unit for Cassandra node startup
-├── install_cassndra.md            # Setup guide to install and configure Apache Cassandra
-├── Cassandra_README.md            # Extended technical documentation for architecture and usage
-├── README.md                      # You are here
-├── logs/
-│   └── ops_log.db                # SQLite DB tracking operations for STCC dependency analysis
-├── middleware/                    # Core STCC middleware logic and operation routing
-│   ├── main.py                   # FastAPI app exposing /api/execute
-│   ├── routing.py                # REST router (POST /api/execute)
-│   ├── consistency.py            # STCC logic for enforcing MR, MW, RYW, WFR, UGD
-│   ├── cassandra_client.py       # Dispatches validated ops to selected Cassandra nodes
-│   ├── odg.py                    # Tracks and enforces user-generated dependencies (UGD)
-│   ├── node_selector.py          # Picks low-load nodes under threshold for distribution
-│   ├── utils.py                  # System-level monitoring using nodetool (UN, tpstats)
-│   ├── config.yaml               # Config for datacenters, STCC thresholds, features
-│   └── run_stcc_ycsb.py          # CLI runner: loads + runs YCSB workloads line-by-line via middleware
-├── default_consistency/          # Baseline runners using Cassandra's built-in consistency
-│   ├── default_all.py            # Runs YCSB workloads with ConsistencyLevel.ALL
-│   ├── default_one.py            # Runs with ConsistencyLevel.ONE
-│   ├── default_quorum.py         # Runs with ConsistencyLevel.QUORUM
-│   ├── config.yaml               # Cluster node list for baseline consistency runners
-│   ├── node_selector.py          # Node load checker for fair workload distribution
-│   ├── utils.py                  # Load-aware node selection logic
-│   ├── main.py                   # (Optional) API server entrypoint (not used)
-│   └── routing.py                # (Unused) Placeholder for default runner routing
+├── Cassandra_README.md
+├── cassandra.service
+├── CITATION.cff
+├── default_consistency
+│   ├── config.yaml
+│   ├── default_all.py
+│   ├── default_one.py
+│   ├── default_quorum.py
+│   ├── __init__.py
+│   ├── main.py
+│   ├── node_selector.py
+│   ├── routing.py
+│   └── utils.py
+├── install_cassndra.md
+├── LICENSE
+├── logs
+│   ├── dstat_log.csv
+│   ├── energy_summary.txt
+│   ├── ops_log.db
+│   └── power_logs.csv
+├── middleware
+│   ├── cassandra_client.py
+│   ├── config.yaml
+│   ├── consistency.py
+│   ├── __init__.py
+│   ├── main.py
+│   ├── node_selector.py
+│   ├── odg.py
+│   ├── routing.py
+│   ├── run_stcc_ycsb.py
+│   └── utils.py
+├── README.md
+├── scripts
+│   └── power-monitor.sh
 ```
 
 ---
@@ -97,8 +106,24 @@ DELETE user42 ykey123
 
 ---
 
-## 🧠 Citation
-If you use this implementation in your research or industrial projects, please cite our corresponding paper (under submission).
+Real-Time Power and CPU Monitoring:
+To evaluate the energy efficiency and system overhead of each consistency model, we provide an optional script for monitoring both CPU utilization and power consumption during benchmark execution.
+
+🔍 What It Measures:
+CPU Usage (%) per second via dstat
+
+Power Draw (Watts) from PDU or WattsUp Pro via SNMP or log extraction
+
+Total Energy Consumption (Wh or Joules) after each run
+
+🛠️ How It Works:
+The script scripts/power-monitor.sh launches:
+
+A background process using dstat to log CPU statistics
+
+A loop (or SNMP poll) to collect power values every second
+
+Synchronization with benchmark start/end times
 
 ---
 
@@ -106,3 +131,14 @@ For questions, contact the author via GitHub or email.
 
 
 Email: hesam.nejati@gmail.com
+
+## 📜 License and Citation
+
+This project is released under the [MIT License](./LICENSE).
+
+🔒 **Usage of this software requires citation** of the following publication:
+
+> H. Nejati Sharif, H. Deldari, M.H. Moattar, M.R. Ghods,  
+> *Strict timed causal consistency as a hybrid consistency model in the cloud environment*,  
+> Future Generation Computer Systems, Vol. 105, 2020, pp. 259–274.  
+> [https://doi.org/10.1016/j.future.2019.12.018](https://doi.org/10.1016/j.future.2019.12.018)
