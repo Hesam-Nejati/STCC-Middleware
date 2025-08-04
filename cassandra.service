@@ -1,0 +1,21 @@
+[Unit]
+Description=Apache Cassandra
+After=network.target
+
+[Service]
+Type=simple
+User=hesam
+Group=hesam
+[Service]
+Environment="JAVA_HOME=/usr/lib/jvm/java-11-openjdk-amd64"
+Environment="CASSANDRA_CONF=/home/hesam/Desktop/web-project/cassandra/apache-cassandra-4.1.8/conf"
+WorkingDirectory=/home/hesam/Desktop/web-project/cassandra/apache-cassandra-4.1.8
+ExecStart=/home/hesam/Desktop/web-project/cassandra/apache-cassandra-4.1.8/bin/cassandra -f -R
+ExecStop=/bin/kill -15 $MAINPID
+Restart=on-failure
+RestartSec=5
+LimitNOFILE=100000
+TimeoutStopSec=30
+
+[Install]
+WantedBy=multi-user.target
