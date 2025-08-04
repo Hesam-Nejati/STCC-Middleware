@@ -1,120 +1,108 @@
-✅ Step-by-Step: Creating a Manual systemd Service for Cassandra
-✳️ Step 1: Create the systemd service file
-# Run the following command to create the service file:
+# STCC-Enabled Cassandra Benchmark Suite
 
-- sudo nano /etc/systemd/system/cassandra.service
+This repository provides a structured environment for evaluating and comparing the **Strict Timed Causal Consistency (STCC)** model against Cassandra's default consistency levels (`ALL`, `QUORUM`, `ONE`). It includes STCC middleware logic, custom YCSB integration, and default consistency runners to benchmark performance, consistency, and scalability.
 
-# Paste the following content into the file (adjust paths and user accordingly):
+---
 
-[Unit]
-Description=Apache Cassandra
-After=network.target
+## 📁 Directory Structure
 
-[Service]
-Type=simple
-User=hesam
-Group=hesam
-[Service]
-Environment="JAVA_HOME=/usr/lib/jvm/java-11-openjdk-amd64"
-Environment="CASSANDRA_CONF=/home/hesam/Desktop/web-project/cassandra/apache-cassandra-4.1.8/conf"
-WorkingDirectory=/home/hesam/Desktop/web-project/cassandra/apache-cassandra-4.1.8
-ExecStart=/home/hesam/Desktop/web-project/cassandra/apache-cassandra-4.1.8/bin/cassandra -f -R
-ExecStop=/bin/kill -15 $MAINPID
-Restart=on-failure
-RestartSec=5
-LimitNOFILE=100000
-TimeoutStopSec=30
+```
+├── cassandra.service              # Optional systemd unit for Cassandra node startup
+├── install_cassndra.md            # Setup guide to install and configure Apache Cassandra
+├── Cassandra_README.md            # Extended technical documentation for architecture and usage
+├── README.md                      # You are here
+├── logs/
+│   └── ops_log.db                # SQLite DB tracking operations for STCC dependency analysis
+├── middleware/                    # Core STCC middleware logic and operation routing
+│   ├── main.py                   # FastAPI app exposing /api/execute
+│   ├── routing.py                # REST router (POST /api/execute)
+│   ├── consistency.py            # STCC logic for enforcing MR, MW, RYW, WFR, UGD
+│   ├── cassandra_client.py       # Dispatches validated ops to selected Cassandra nodes
+│   ├── odg.py                    # Tracks and enforces user-generated dependencies (UGD)
+│   ├── node_selector.py          # Picks low-load nodes under threshold for distribution
+│   ├── utils.py                  # System-level monitoring using nodetool (UN, tpstats)
+│   ├── config.yaml               # Config for datacenters, STCC thresholds, features
+│   └── run_stcc_ycsb.py          # CLI runner: loads + runs YCSB workloads line-by-line via middleware
+├── default_consistency/          # Baseline runners using Cassandra's built-in consistency
+│   ├── default_all.py            # Runs YCSB workloads with ConsistencyLevel.ALL
+│   ├── default_one.py            # Runs with ConsistencyLevel.ONE
+│   ├── default_quorum.py         # Runs with ConsistencyLevel.QUORUM
+│   ├── config.yaml               # Cluster node list for baseline consistency runners
+│   ├── node_selector.py          # Node load checker for fair workload distribution
+│   ├── utils.py                  # Load-aware node selection logic
+│   ├── main.py                   # (Optional) API server entrypoint (not used)
+│   └── routing.py                # (Unused) Placeholder for default runner routing
+```
 
-[Install]
-WantedBy=multi-user.target
+---
 
-# Write your own directory
+## 🚀 Usage Overview
 
-ExecStart=/home/hesam/Desktop/web-project/backend/apache-cassandra/bin/cassandra -f
+### 🔧 Step 1: Set Up Cassandra Cluster
+- Deploy Apache Cassandra across your desired nodes
+- Configure **NetworkTopologyStrategy** replication using `config.yaml`
+- Ensure `nodetool status` and `tpstats` return valid responses on all nodes
 
-⚠️ Note: If Java is not found...
-# Cassandra may require JAVA_HOME to be set explicitly.
-# If you see an error related to Java in the logs, make sure the following line is added before ExecStart:
+### 🧠 Step 2: Run STCC-enabled YCSB Workload
+```bash
+python middleware/run_stcc_ycsb.py
+```
+- Select workload `a`, `b`, or `c` when prompted
+- Automatically loads dataset to low-load nodes
+- Each operation is parsed and sent to the STCC API:
+  - Enforces **Monotonic Read**, **Monotonic Write**, **Read Your Writes**, **Write-Follow-Read**, and **User-Generated Dependencies**
+  - Sends validated requests to optimal Cassandra nodes for execution
 
-Environment="JAVA_HOME=/usr/lib/jvm/java-8-openjdk-amd64"
+### 📊 Step 3: Run Baseline Cassandra Consistency for Comparison
+```bash
+python default_consistency/default_all.py      # For ConsistencyLevel.ALL
+python default_consistency/default_quorum.py   # For ConsistencyLevel.QUORUM
+python default_consistency/default_one.py      # For ConsistencyLevel.ONE
+```
+- Each script:
+  - Picks low-load nodes
+  - Loads and runs YCSB directly with chosen consistency level
+  - No STCC logic is applied (baseline)
 
-✅ How to Install Java with apt (and change versions)
-Step-by-step instructions:
+---
 
-1. Install OpenJDK (e.g., **Java 8** or **Java 11**):
+## 🔍 Key Concepts
+- **STCC** = Client-enforced consistency logic using operation logs and timestamp verification
+- **YCSB Integration** = Instead of sending workload to Cassandra directly, YCSB operations are parsed and sent line-by-line to the middleware
+- **UGD Detection** = STCC middleware uses `ops_log.db` to enforce cross-user consistency semantics
 
-- sudo apt update
+---
 
-**Java 8**
-- sudo apt install openjdk-8-jdk
+## 🧪 Workloads
+Place your workload files in:
+```
+YCSB/workloads/workloada
+YCSB/workloads/workloadb
+YCSB/workloads/workloadc
+```
+Each workload must follow YCSB command format:
+```
+INSERT user42 ykey123 field0=val0 field1=val1
+READ user42 ykey123
+UPDATE user42 ykey123 field1=newval
+DELETE user42 ykey123
+```
 
-**Java 11**:
+---
 
-- sudo apt install openjdk-11-jdk
+## 📦 Dependencies
+- Apache Cassandra (≥ v4.x)
+- Python 3.8+
+- FastAPI, requests, sqlite3
 
-2. Check installed Java versions:
+---
 
-- update-java-alternatives --list
+## 🧠 Citation
+If you use this implementation in your research or industrial projects, please cite our corresponding paper (under submission).
 
-3. Switch between Java versions:
+---
 
-- sudo update-alternatives --config java
-
-Select the version you want by typing the corresponding number.
-
-4. Check the currently active Java version:
-
-- java -version
-
-✅ Change Ownership of Cassandra Directory to Your User
-
-# To ensure you have permission to run everything, transfer ownership to your user:
-
-- sudo chown -R $USER:$USER /path/to/destination/apache-cassandra-4.1.8
-
-# This gives full access to all Cassandra files and directories under your username.
-
-✅ Make Cassandra Executable
-# Ensure the Cassandra binary is executable:
-
-- chmod +x /path/to/destination/apache-cassandra-4.1.8/bin/cassandra
-
-✅ Start and Manage the Cassandra Service:
-
-# Warning: The unit file, source configuration file or drop-ins of cassandra.service changed on disk. Run 'systemctl daemon-reload' to reload units.
-
-- systemctl daemon-reload
-
-# Start the service:
-
-- sudo systemctl start cassandra
-
-# Restart the service:
-
-- sudo systemctl restart cassandra
-
-# Check the service status:
-
-- sudo systemctl status cassandra
-
-# Stop the service:
-
-- sudo systemctl stop cassandra
-
-
-🧪 If Something Goes Wrong: Check Logs
-# To see the latest logs:
-
-- journalctl -u cassandra -n 50 --no-pager
-
-✅ Cassandra Python Driver and CLI Tools
-# Install the Python Cassandra driver:
-
-- pip install cassandra-driver
-- pip install six
-
-# Install cqlsh via Snap:
-
-- sudo snap install cqlsh
+For questions, contact the author via GitHub or email.
 
 
+Email: hesam.nejati@gmail.com
