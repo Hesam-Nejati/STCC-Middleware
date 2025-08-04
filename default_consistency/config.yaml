@@ -1,4 +1,4 @@
-#middlewar/config.yaml
+#default_consistency/config.yaml
 replication:
   strategy: NetworkTopologyStrategy
   datacenters:
