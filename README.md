@@ -198,3 +198,10 @@ This project is released under the [MIT License](./LICENSE).
 > *Strict timed causal consistency as a hybrid consistency model in the cloud environment*,  
 > Future Generation Computer Systems, Vol. 105, 2020, pp. 259–274.  
 > [https://doi.org/10.1016/j.future.2019.12.018](https://doi.org/10.1016/j.future.2019.12.018)
+
+> H. Nejati Sharifaldin, F. Nayebi Pour,
+> *An Industrial Benchmarking Suite for Energy–Performance–Consistency Trade-Offs in Apache Cassandra with Middleware-Enforced Timed Causal Consistency and Static Consistency Levels*,
+> [https://github.com/Hesam-Nejati/STCC-Middleware] Aug, 2025.
+> [https://doi.org/10.5281/zenodo.16742599](https://doi.org/10.5281/zenodo.16742599)
+ 
+
