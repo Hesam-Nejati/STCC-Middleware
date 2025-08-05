@@ -1,14 +1,15 @@
 cff-version: 1.2.0
 message: "If you use this software, please cite the following paper:"
 authors:
-  - family-names: Nejati Sharif
+  - family-names: Nejati SharifAldin
     given-names: Hesam
     orcid: https://orcid.org/0000-0000-0000-0000
 title: "STCC-Enabled Cassandra Benchmark Suite"
 version: 1.0.0
 date-released: 2025-08-04
 license: MIT
-doi: 10.1016/j.future.2019.12.018
+
+
 references:
   - type: article
     authors:
@@ -27,3 +28,23 @@ references:
     pages: 259–274
     doi: 10.1016/j.future.2019.12.018
     publisher: Elsevier
+
+---
+
+@software{nejati_sharifaldin_2025_16742599,
+  author       = {Nejati sharifaldin, Hesam and
+                  Farnoush, Nayebi Pour},
+  title        = {An Industrial Benchmarking Suite for
+                   Energy–Performance–Consistency Trade-Offs in
+                   Apache Cassandra with Middleware-Enforced Timed
+                   Causal Consistency and Static Consistency Levels
+                  },
+  month        = aug,
+  year         = 2025,
+  publisher    = {Hesam Nejati Sharif Aldin},
+  version      = {V1.0.0},
+  doi          = {10.5281/zenodo.16742599},
+  url          = {https://doi.org/10.5281/zenodo.16742599},
+}
+
+
