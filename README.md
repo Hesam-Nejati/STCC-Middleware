@@ -82,8 +82,8 @@ python default_consistency/default_one.py      # For ConsistencyLevel.ONE
 
 ---
 
-## Step 4:  Real-Time Power and CPU Monitoring:
-To evaluate the energy efficiency and system overhead of each consistency model, we provide an optional s>
+## ⚡ Step 4: Real-Time Power and CPU Monitoring:
+To evaluate the energy efficiency and system overhead of each consistency model, we provide an optional ...
 
 🔍 What It Measures:
 CPU Usage (%) per second via dstat
