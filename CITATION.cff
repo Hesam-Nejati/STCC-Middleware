@@ -3,7 +3,7 @@ message: "If you use this software, please cite the following paper:"
 authors:
   - family-names: Nejati SharifAldin
     given-names: Hesam
-    orcid: https://orcid.org/0000-0000-0000-0000
+    orcid: https://orcid.org/0009-0001-0334-8171
 title: "STCC-Enabled Cassandra Benchmark Suite"
 version: 1.0.0
 date-released: 2025-08-04
