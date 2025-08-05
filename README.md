@@ -10,6 +10,41 @@ This repository provides a structured environment for evaluating and comparing t
 ├── Cassandra_README.md
 ├── cassandra.service
 ├── CITATION.cff
+├── data_analysis
+│   ├── case_study_workload_a.py
+│   ├── case_study_workload_b.py
+│   ├── case_study_workload_c.py
+│   ├── dynamic_power_wa_full_1.py
+│   ├── dynamic_power_wa_partial.py
+│   ├── dynamic_power_wb_full_1.py
+│   ├── dynamic_power_wb_partial.py
+│   ├── dynamic_power_wc_full_1.py
+│   ├── dynamic_power_wc_partial.py
+│   ├── energy_execution_full_wa_one.py
+│   ├── energy_execution_full_wa.py
+│   ├── energy_execution_full_wa_quorum.py
+│   ├── energy_execution_full_wb_one.py
+│   ├── energy_execution_full_wb.py
+│   ├── energy_execution_full_wb_quorum.py
+│   ├── energy_execution_full_wc_one.py
+│   ├── energy_execution_full_wc.py
+│   ├── energy_execution_full_wc_quorum.py
+│   ├── network_latancy-full-wa.py
+│   ├── network_latancy-full-wb.py
+│   ├── network_latancy-full-wc.py
+│   ├── network_latancy-partial-wa.py
+│   ├── network_latancy-partial-wb.py
+│   ├── network_latency-partial-wc.py
+│   ├── network_latency_vs_no_nodes.py
+│   ├── netwrok_latency_replication_factor.py
+│   ├── power_predict_new.py
+│   ├── power_predict.py
+│   ├── power_vs_node.py
+│   ├── throughput_vs_number_of_nodes.py
+│   ├── throughput_vs_replication_factor.py
+│   ├── throughput-wa.py
+│   ├── throughput-wb.py
+│   └── throughput-wc.py
 ├── default_consistency
 │   ├── config.yaml
 │   ├── default_all.py
@@ -20,13 +55,33 @@ This repository provides a structured environment for evaluating and comparing t
 │   ├── node_selector.py
 │   ├── routing.py
 │   └── utils.py
+├── figure
+│   ├── cassandra-monitoring-1-opscenter.jpg
+│   ├── cassandra_yaml_change_cluster_nme
+│   ├── cqlsh.png
+│   ├── create_keyspace.png
+│   ├── create_ycsb_table.png
+│   ├── middleware.pdf
+│   ├── network_topology_strategy.webp
+│   ├── nodetool_cfstats_user_network_topology_ycsb.png
+│   ├── nodetool_status.png
+│   ├── nodetool_tpstats.png
+│   ├── odg.png
+│   ├── opscenter_1043873.jpg
+│   ├── output.png
+│   ├── read_write_latency.png
+│   ├── sample_ycsb_result_in_terminal_linux.png
+│   ├── workload_a.png
+│   ├── workload_b.png
+│   └── workload_c.png
 ├── install_cassndra.md
 ├── LICENSE
 ├── logs
-│   ├── dstat_log.csv
-│   ├── energy_summary.txt
 │   ├── ops_log.db
-│   └── power_logs.csv
+│   ├── structured_ycsb_data.csv
+│   ├── structured_ycsb_data.json
+│   ├── ycsb_energy_data_runtime.csv
+│   └── ycsb_energy_data_runtime.json
 ├── middleware
 │   ├── cassandra_client.py
 │   ├── config.yaml
@@ -41,6 +96,7 @@ This repository provides a structured environment for evaluating and comparing t
 ├── README.md
 ├── scripts
 │   └── power-monitor.sh
+└── YCSB_README.md
 ```
 
 ---
