@@ -1,6 +1,6 @@
 # STCC-Enabled Cassandra Benchmark Suite
 
-This repository provides a structured environment for evaluating and comparing the **Strict Timed Causal Consistency (STCC)** model against Cassandra's default consistency levels (`ALL`, `QUORUM`, `ONE`). It includes STCC middleware logic, custom YCSB integration, and default consistency runners to benchmark performance, consistency, and scalability.
+This repository provides a structured environment for evaluating and comparing the **Strict Timed Causal Consistency (STCC)** model against Cassandra's default consistency levels (`ALL`, `QUORUM`, `ONE`). It includes STCC middleware logic, custom YCSB integration, and default consistency runners to benchmark performance, consistency, energy, and scalability.
 
 ---
 
