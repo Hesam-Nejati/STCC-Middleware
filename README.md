@@ -82,6 +82,27 @@ python default_consistency/default_one.py      # For ConsistencyLevel.ONE
 
 ---
 
+## Step 4:  Real-Time Power and CPU Monitoring:
+To evaluate the energy efficiency and system overhead of each consistency model, we provide an optional s>
+
+🔍 What It Measures:
+CPU Usage (%) per second via dstat
+
+Power Draw (Watts) from PDU or WattsUp Pro via SNMP or log extraction
+
+Total Energy Consumption (Wh or Joules) after each run
+
+🛠️ How It Works:
+The script scripts/power-monitor.sh launches:
+
+A background process using dstat to log CPU statistics
+
+A loop (or SNMP poll) to collect power values every second
+
+Synchronization with benchmark start/end times
+
+---
+
 ## 🧪 Workloads
 Place your workload files in:
 ```
@@ -101,29 +122,8 @@ DELETE user42 ykey123
 
 ## 📦 Dependencies
 - Apache Cassandra (≥ v4.x)
-- Python 3.8+
+- Python 3.12.3
 - FastAPI, requests, sqlite3
-
----
-
-Real-Time Power and CPU Monitoring:
-To evaluate the energy efficiency and system overhead of each consistency model, we provide an optional script for monitoring both CPU utilization and power consumption during benchmark execution.
-
-🔍 What It Measures:
-CPU Usage (%) per second via dstat
-
-Power Draw (Watts) from PDU or WattsUp Pro via SNMP or log extraction
-
-Total Energy Consumption (Wh or Joules) after each run
-
-🛠️ How It Works:
-The script scripts/power-monitor.sh launches:
-
-A background process using dstat to log CPU statistics
-
-A loop (or SNMP poll) to collect power values every second
-
-Synchronization with benchmark start/end times
 
 ---
 
