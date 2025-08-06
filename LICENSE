@@ -25,6 +25,22 @@ Any published, distributed, or derivative work using this software (in part or i
   publisher={Elsevier}
 }
 
+@software{nejati_sharifaldin_2025_16742599,
+  author       = {Nejati sharifaldin, Hesam and
+                  Farnoush, Nayebi Pour},
+  title        = {An Industrial Benchmarking Suite for
+                   Energy–Performance–Consistency Trade-Offs in
+                   Apache Cassandra with Middleware-Enforced Timed
+                   Causal Consistency and Static Consistency Levels
+                  },
+  month        = aug,
+  year         = 2025,
+  publisher    = {Hesam Nejati Sharif Aldin},
+  version      = {V1.0.0},
+  doi          = {10.5281/zenodo.16742599},
+  url          = {https://doi.org/10.5281/zenodo.16742599},
+}
+
 Once our upcoming publication related to this implementation is accepted, citation of that work will also be required.
 
 THE SOFTWARE IS PROVIDED “AS IS”, WITHOUT WARRANTY OF ANY KIND.
